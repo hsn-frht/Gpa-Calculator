@@ -76,7 +76,14 @@ function askForGrade() {
 }
 
 function submitGrade() {
-    let gradeInput = document.getElementById("hiddenOption").value;
+    if (totalCourses === 0) {
+        document.getElementById("out_num").textContent = "please enter the amount of courses first";
+        document.getElementById("displayResult").textContent ="error calculating gpa need to enter number of courses first";
+        return;
+    }
+
+    let gradeInputElement = document.getElementById("hiddenOption");
+    let gradeInput = gradeInputElement.value;
     let grade = parseInt(gradeInput);
 
     if (isNaN(grade) || grade < 0 || grade > 100) {
@@ -87,5 +94,6 @@ function submitGrade() {
     grades.push(grade); // Store grade
     sum += grade; // Add to sum
     courseIndex++; // Move to next course
+    gradeInputElement.value = ""; // Clear input
     askForGrade(); // Prompt next grade
 }
